@@ -217,6 +217,20 @@
     // First, check if it's a PRE and exit if not
       var bodyChildren = document.body.childNodes ;
       pre = bodyChildren[0] ;
+    
+      if(pre instanceof Text && pre.length < 3000000) {
+        try {
+          JSON.parse(pre.wholeText);
+          var pre_elm = document.createElement('pre');
+          pre_elm.innerText = pre.wholeText
+          document.write(pre_elm.outerHTML)
+          bodyChildren = document.body.childNodes ;
+          pre = bodyChildren[0] ;
+        }catch (e) {
+
+        }
+      }
+    
       var jsonLength = (pre && pre.innerText || "").length ;
       if (
         bodyChildren.length !== 1 ||
